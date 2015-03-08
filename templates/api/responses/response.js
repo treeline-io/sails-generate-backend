@@ -43,7 +43,10 @@ module.exports = function sendResponse (options) {
       break;
 
     case 'display_view':
-      res.view(options.view, options.data);
+      res.view(options.view, options.data, function(err, result) {
+        if (err) {return res.negotiate(err);}
+        return res.send(result);
+      });
       break;
 
     case 'not_implemented':
