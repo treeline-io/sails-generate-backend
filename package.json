@@ -1,7 +1,7 @@
 {
-  "name": "sails-generate-backend",
+  "name": "treeline-generate-backend",
   "version": "0.12.1",
-  "description": "Generate a backend for Sails.",
+  "description": "Generate a backend for a Treeline app.",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha"
@@ -13,7 +13,7 @@
     "generate",
     "plugin"
   ],
-  "author": "balderdashy",
+  "author": "sgress454",
   "license": "MIT",
   "dependencies": {
     "lodash": ">=2.4.x",
