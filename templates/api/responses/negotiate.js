@@ -22,7 +22,7 @@ module.exports = function (err) {
   var res = this.res;
 
   var statusCode = 500;
-  var body = err;
+  var body = err || {};
 
   var Path = require('path');
   try {
@@ -36,8 +36,8 @@ module.exports = function (err) {
   } catch (e) {}
 
   // Respond using the appropriate custom response
-  if (statusCode === 403) return res.forbidden(body);
-  if (statusCode === 404) return res.notFound(body);
+  if (statusCode === 403) return res.forbidden(body.data || body);
+  if (statusCode === 404) return res.notFound(body.data || body);
   if (statusCode === 400 && (err.code == "E_MACHINE_RUNTIME_VALIDATION" || err.code == "E_INVALID_TYPE") && !this.req.wantsJSON) {
     return res.view("validationError", {data: sails.config.environment == 'production' ? undefined : err, _layoutFile: false}, function(viewErr, result) {
       if (viewErr) {return res.json(viewErr);}
@@ -50,6 +50,6 @@ module.exports = function (err) {
       return res.send(result);
     });
   }
-  else if (statusCode >= 400 && statusCode < 500) return res.badRequest(body);
-  else return res.serverError(body);
+  else if (statusCode >= 400 && statusCode < 500) return res.badRequest(body.data || body);
+  else return res.serverError(body.data || body);
 };
