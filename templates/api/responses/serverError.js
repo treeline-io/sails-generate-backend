@@ -19,6 +19,19 @@ module.exports = function serverError (data, options) {
   var res = this.res;
   var sails = req._sails;
 
+  // If the data is an Error object, leave it as is; it will be
+  // inspected and stringified automagically.  If not, we'll attempt
+  // to stringify it, and failing that, just clear it out (better than
+  // displaying [Object object])
+  if (!(data instanceof Error) && _.isObject(data)) {
+    try {
+      data = JSON.stringify(data);
+    }
+    catch(e) {
+      data = undefined;
+    }
+  }
+
   // Set status code
   res.status(500);
 
