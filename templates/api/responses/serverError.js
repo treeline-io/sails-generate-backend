@@ -23,7 +23,7 @@ module.exports = function serverError (data, options) {
   // inspected and stringified automagically.  If not, we'll attempt
   // to stringify it, and failing that, just clear it out (better than
   // displaying [Object object])
-  if (!(data instanceof Error) && _.isObject(data)) {
+  if (!(data instanceof Error) && sails.util.isObject(data)) {
     try {
       data = JSON.stringify(data);
     }
