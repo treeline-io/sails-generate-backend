@@ -18,8 +18,10 @@
 
 module.exports = function (err) {
 
-  // Get access to response object (`res`)
+  // Get access to `req`, `res`, & `sails`
+  var req = this.req;
   var res = this.res;
+  var sails = req._sails;
 
   var statusCode = 500;
   var body = err || {};
